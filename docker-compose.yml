@@ -1,0 +1,11 @@
+version: '3'
+services:
+    app:
+        build: .
+        ports:
+            - 3000:3000
+            # volumesでマウントしておかないとvscodeで作成したファイルとかをdockerのLinux側にコピーしてくれないので必ず書く
+        volumes:
+            - .:/usr/src/app
+            # node_modulesはWindowsはWindows、LinuxはLinuxで内容が異なるのでコピーしたくないといった設定
+            - /usr/src/app/node_modules
