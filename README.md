@@ -1,34 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 環境構築手順
+### ０.Node.jsをPCにインストールしよう
+- ググって下さい。
+### １.npx create-next-appコマンドでNext.js+Webサーバを立てよう
 
-## Getting Started
+1. 適当なディレクトリを作成し、その配下で「npx create-next-app」コマンド実行。
 
-First, run the development server:
+2. package.jsonのあるappディレクトリまで遷移し「npm run dev」実行。
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+   ```
+   npm run dev
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. ブラウザでhttp://localhost:3000/にアクセスし、Next.jsの画面が表示されていることを確認。
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+4. 確認できたら「ctrl + c」で一旦停止して再度3000ポートを確認しサーバが上がっていない事を確認。
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### ２.docker化しよう:whale:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. （この工程は不要かも）dockerfileとdocker-compose.ymlファイルを「npx create-next-app」を実行したことによって作成されたファイル配下に格納する。ちなみにWSL環境のubuntuのコマンドラインに「code」と入力しvscodeを立ち上げることによってwslのファイル書き込み権限がある状態で開けるので必ずこの方法で開く。
 
-## Learn More
+   ```
+   app-
+       |-next
+       |-pages
+       |-public
+       |-styles
+       |-.eslintrc
+       |-.gitignge-lock.json
+       |-pakage.json
+       |-etc...
+       |-ここに格納
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. 「~/react-app/next-docker-sns/sns$」 配下に移動し「docker-compose up -d --build」を実行しdockerのイメージ、コンテナ作成と同時にコンテナを起動させる。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+3. 「http://localhost:3000/」にアクセスし画面にSNSのホーム画面が表示されていればdocker化完了。
