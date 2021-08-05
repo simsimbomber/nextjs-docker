@@ -1,7 +1,9 @@
 version: '3'
 services:
-    app:
-        build: .
+    web:
+        build: 
+            context: .
+            dockerfile: ./containers/web/Dockerfile
         ports:
             - 3000:3000
             # volumesでマウントしておかないとvscodeで作成したファイルとかをdockerのLinux側にコピーしてくれないので必ず書く
@@ -9,3 +11,12 @@ services:
             - .:/usr/src/app
             # node_modulesはWindowsはWindows、LinuxはLinuxで内容が異なるのでコピーしたくないといった設定
             - /usr/src/app/node_modules
+    # db:
+    #     build:
+    #         context: .
+    #         dockerfile: ./containers/db/Dockerfile
+    #     ports:
+    #         - 5433:5432
+    #     environment:
+    #         POSTGRES_USER: admin
+    #         POSTGRES_PASSWORD: admin
