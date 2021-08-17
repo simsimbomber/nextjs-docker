@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
-import { RiHome7Line, RiBellLine, RiMailLine, RiHashtag, RiBookmark3Line, RiFileList2Line, RiSettings4Line } from "react-icons/ri";
+import { RiTwitterFill, RiHome7Line, RiBellLine, RiMailLine, RiBookmark3Line, RiFileList2Line, RiSettings4Line } from "react-icons/ri";
 
 const mainView = () => {
     return (
@@ -18,6 +18,11 @@ const mainView = () => {
         <div style={styles.container_child_left}>
             <div>left</div><br></br>
             <ul>
+                <li type='none' style={{marginLeft:'60px'}}>
+                    <a href="/">
+                        <RiTwitterFill size="20%" style={styles.margin_list}/>
+                    </a>
+                </li>
                 <li type='none' style={{marginLeft:'80px'}}>
                     <RiHome7Line size="10%" style={styles.margin_list}/>
                     <a href="/" className="fs-4" style={styles.link_none}>ホーム</a><br></br>
@@ -54,6 +59,14 @@ const mainView = () => {
         </div>
         <div style={styles.container_child_right}>
             right
+            <InputGroup className="mb-3" style={{width:400}}>
+                <FormControl 
+                    placeholder="検索"
+                    aria-label="Search Tweet"
+                    aria-describedby="basic-addon1"
+                    style={{width:150}}>
+                </FormControl>
+            </InputGroup>
         </div>
     </div>
 
@@ -79,59 +92,76 @@ const styles = {
         minHeight: '100vh',
         display: 'flex',
         flexDiretion: 'row',
-      },
+    },
       
-      container_child_left: {
-        flexDirection: 'column',
-        alignItems: 'center',
-        background: 'white',
-        width:'25%',
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
+    container_child_left: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      background: 'white',
+      width:'25%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
 
-      container_child_center: {
-        flexDirection: 'column',
-        alignItems: 'center',
-        background: 'white',
-        width:'50%',
-        borderLeft: 'solid 2px grey',
-        borderRight: 'solid 2px grey',
-      },
+    container_child_center: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      background: 'white',
+      width:'50%',
+      borderLeft: 'solid 2px grey',
+      borderRight: 'solid 2px grey',
+    },
 
-      container_child_right: {
-        flexDirection: 'column',
-        alignItems: 'center',
-        background: 'white',
-        width:'25%',
-      },
+    container_child_right: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      background: 'white',
+      width:'25%',
+    },
 
-      left: {
-        alignItems: 'left'
-      },
-      center: {
-        alignItems: 'center'
-      },
-      margin_list: {
-        margin:'5px 15px 5px 5px'
-      },
-      footer: {
-        width: '100%',
-        height: '10vh',
-        borderTop: '1px solid #eaeaea',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-      },
-      square: {
-        width: '150px',
-        height: '150px',
-        borderRadius: '50%',
-        background: 'red',
-      },
-      link_none: {
-        textDecoration: 'none',
-        color: '#000000'
-      }
+    left: {
+      alignItems: 'left'
+    },
+    center: {
+      alignItems: 'center'
+    },
+    margin_list: {
+      margin:'5px 15px 5px 5px'
+    },
+    footer: {
+      width: '100%',
+      height: '10vh',
+      borderTop: '1px solid #eaeaea',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
+    },
+    square: {
+      width: '150px',
+      height: '150px',
+      borderRadius: '50%',
+      background: 'red',
+    },
+    link_none: {
+      textDecoration: 'none',
+      color: '#000000',
+    },
+
+    myStyleClassName: {
+        padding: '16px 0px 16px 0px',
+        '& a': {
+            textDecoration: 'none',
+            color: '#0000ee',
+        },
+        '& a:hover': {
+        textDecoration: 'underline',
+    },
+},
+myButtonClass: {
+    '&:hover': {
+         textDecoration: 'underline',
+    },       
+},
+
 };
