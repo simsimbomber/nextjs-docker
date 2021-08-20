@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
-import { RiTwitterFill, RiHome7Line, RiBellLine, RiMailLine, RiBookmark3Line, RiFileList2Line, RiSettings4Line } from "react-icons/ri";
+import { RiTwitterFill, RiHome7Line, RiBellLine, RiMailLine, RiBookmark3Line, RiFileList2Line, RiSettings4Line, RiSearchLine } from "react-icons/ri";
 
 const mainView = () => {
     return (
@@ -16,7 +16,6 @@ const mainView = () => {
 
     <div style={styles.container_parent}>
         <div style={styles.container_child_left}>
-            <div>left</div><br></br>
             <ul>
                 <li type='none' style={{marginLeft:'60px'}}>
                     <a href="/">
@@ -49,17 +48,17 @@ const mainView = () => {
                 </li>
             </ul>
             <div style={{marginLeft:'90px'}} >
-                <Button variant="outline-primary"style={{width:150}}>ツイート</Button><br></br>
+                <Button variant="outline-primary" style={{width:150}} onClick={popUpInputArea}>ツイート</Button><br></br>
+                <div style={styles.overlay}></div>
             </div>
             
         </div>
 
         <div style={styles.container_child_center}>
-            center
         </div>
         <div style={styles.container_child_right}>
-            right
             <InputGroup className="mb-3" style={{width:400}}>
+                <InputGroup.Text><RiSearchLine/></InputGroup.Text>
                 <FormControl 
                     placeholder="検索"
                     aria-label="Search Tweet"
@@ -69,6 +68,8 @@ const mainView = () => {
             </InputGroup>
         </div>
     </div>
+
+    
 
     {/* <div style={styles.footer}>
         <footer>
@@ -84,6 +85,11 @@ const mainView = () => {
     )
 }
 
+// ツイートボタンを押した際に入力ボックスをポップアップ表示させる
+const popUpInputArea = () => {
+
+}
+
 export default mainView;
 
 // CSS in Js
@@ -93,7 +99,6 @@ const styles = {
         display: 'flex',
         flexDiretion: 'row',
     },
-      
     container_child_left: {
       flexDirection: 'column',
       alignItems: 'center',
@@ -102,7 +107,6 @@ const styles = {
       justifyContent: 'center',
       alignItems: 'center',
     },
-
     container_child_center: {
       flexDirection: 'column',
       alignItems: 'center',
@@ -111,14 +115,12 @@ const styles = {
       borderLeft: 'solid 2px grey',
       borderRight: 'solid 2px grey',
     },
-
     container_child_right: {
       flexDirection: 'column',
       alignItems: 'center',
       background: 'white',
       width:'25%',
     },
-
     left: {
       alignItems: 'left'
     },
@@ -147,21 +149,18 @@ const styles = {
       textDecoration: 'none',
       color: '#000000',
     },
-
-    myStyleClassName: {
-        padding: '16px 0px 16px 0px',
-        '& a': {
-            textDecoration: 'none',
-            color: '#0000ee',
-        },
-        '& a:hover': {
-        textDecoration: 'underline',
+    overlay: {
+      /*　画面全体を覆う設定　*/
+      position:fixed,
+      top:0,
+      left:0,
+      width:100%,
+      height:100%,
+      background-color:rgba(0,0,0,0.5),
+        
+      /*　画面の中央に要素を表示させる設定　*/
+      display: flex,
+      align-items: center,
+      justify-content: center,  
     },
-},
-myButtonClass: {
-    '&:hover': {
-         textDecoration: 'underline',
-    },       
-},
-
 };
