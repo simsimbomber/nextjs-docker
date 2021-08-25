@@ -14,6 +14,7 @@ const CreateAccount = () => {
         <link rel="icon" href="/images/favicon.ico" />
     </Head>
     <div style={styles.container}> 
+        <div style={styles.distortedCircle}></div>
         <div className="fs-2" style={styles.center}>アカウントを作成</div><br></br>
         <span className="fs-6">ユーザ名</span>
         <InputGroup className="mb-3" style={{width:400}}>
@@ -107,10 +108,12 @@ const styles = {
         borderRadius: '50%',
         background: 'red',
       },
-      test1: {
-        //background: 'red',
-      },
-      test2: {
-        background: 'yellow',
-      },
+      distortedCircle: {
+        width:500, 
+        height:500,
+        borderRadius:'50% 50% 50% 70%/50% 50% 70% 60%', 
+        background:'skyblue', 
+        position:'absolute',
+        zIndex:'-1'
+      }
 };

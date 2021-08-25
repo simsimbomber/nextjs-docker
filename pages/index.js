@@ -53,7 +53,7 @@ export default function Home() {
           </a>
 
           <a
-            href="./posts/omikuji"
+            href="./posts/omikuji/mainView"
             className={styles.card}
           >
             <h2>おみくじ &rarr;</h2>

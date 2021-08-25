@@ -14,6 +14,7 @@ const Login = () => {
         <link rel="icon" href="/images/favicon.ico" />
     </Head>
     <div style={styles.container}> 
+        <div style={styles.distortedCircle}></div>
         <div className="fs-2" style={styles.center}>SNSにログイン</div><br></br>
         <span className="fs-6">ユーザ名</span>
         <InputGroup className="mb-3" style={{width:400}}>
@@ -33,13 +34,14 @@ const Login = () => {
                 aria-describedby="basic-addon1"
             />
         </InputGroup>
-        <Button variant="outline-primary"style={{width:150}}>ログイン</Button><br></br>
+        <Button href="./mainView" variant="outline-primary"style={{width:150}}>ログイン</Button><br></br>
         <div style={{textAlign:'center'}}>
             <Link href="/" className="fs-6">
                 <a>ホームに戻る</a>
             </Link>
         </div>
     </div> 
+
     <div style={styles.footer}>
         <footer>
             <a href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app" target="_blank" rel="noopener noreferrer">
@@ -99,10 +101,12 @@ const styles = {
         borderRadius: '50%',
         background: 'red',
       },
-      test1: {
-        //background: 'red',
-      },
-      test2: {
-        background: 'yellow',
-      },
+      distortedCircle: {
+        width:500, 
+        height:500,
+        borderRadius:'50% 50% 50% 70%/50% 50% 70% 60%', 
+        background:'skyblue', 
+        position:'absolute',
+        zIndex:'-1'
+      }
 };

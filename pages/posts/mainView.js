@@ -1,11 +1,13 @@
-import Link from 'next/link'
 import Head from 'next/head'
-import Image from 'next/image'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import { RiTwitterFill, RiHome7Line, RiBellLine, RiMailLine, RiBookmark3Line, RiFileList2Line, RiSettings4Line, RiSearchLine } from "react-icons/ri";
+import ModalWindow from '../../components/modalWindow';
+import React, { useState } from 'react';
 
 const mainView = () => {
+    const [show, setShow] = useState(false);
+
     return (
     <>
     <Head>
@@ -48,9 +50,10 @@ const mainView = () => {
                 </li>
             </ul>
             <div style={{marginLeft:'90px'}} >
-                <Button variant="outline-primary" style={{width:150}} onClick={popUpInputArea}>ツイート</Button><br></br>
-                <div style={styles.overlay}></div>
+                <Button variant="outline-primary" style={{width:150}} onClick={() => setShow(true)}>ツイート</Button><br></br>
+                <ModalWindow show={show} setShow={setShow}/>
             </div>
+            
             
         </div>
 
@@ -83,11 +86,6 @@ const mainView = () => {
     </div> */}
     </>
     )
-}
-
-// ツイートボタンを押した際に入力ボックスをポップアップ表示させる
-const popUpInputArea = () => {
-
 }
 
 export default mainView;
@@ -149,18 +147,5 @@ const styles = {
       textDecoration: 'none',
       color: '#000000',
     },
-    overlay: {
-      /*　画面全体を覆う設定　*/
-      position:fixed,
-      top:0,
-      left:0,
-      width:100%,
-      height:100%,
-      background-color:rgba(0,0,0,0.5),
-        
-      /*　画面の中央に要素を表示させる設定　*/
-      display: flex,
-      align-items: center,
-      justify-content: center,  
-    },
+    
 };
