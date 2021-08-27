@@ -20,6 +20,6 @@ COPY . .
 RUN npm install
 RUN npm install react-bootstrap bootstrap 
 RUN npm install react-icons
-RUN npm install pg-promise
+RUN npm install sqlite sqlite3
 EXPOSE 3000
 CMD [ "npm", "run", "dev" ]
