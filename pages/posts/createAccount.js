@@ -1,60 +1,180 @@
 import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
-//import styles from '../../styles/Home.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
+//import fetch from 'isomorphic-unfetch'
 
 const CreateAccount = () => {
+       
+    // DBからユーザデータを全て取得
+    const getAllUserData = async() => {
+        const res = await fetch('http://localhost:3000/api/get/user');
+        const data = await res.json();
+        return data;
+    }
+    
+    // 入力値の整合性チェック
+    const checkFormatValue = (id, regularExpressions) => {
+        let FormatFlg = false;
+        const inputValue = document.getElementById(id).value;
+        const result = inputValue.match(regularExpressions);
+        // フォーマットが正しくなければresultの値にnullが返るためそれをキーにフォーマットの整合性を判定
+        if (result === null) {
+            FormatFlg = true;
+        }
+        return FormatFlg;
+    }
+
+    // 文字数が８文字以上１６文字以下かどうかチェック
+    const checkWordCountValue = (id) => {
+        let wordCountFlg = false;
+        const inputId = document.getElementById(id).value;　// 入力したIDデータ取得
+        const minWord = 8; // 最小値
+        const maxWord = 16;　// 最大値
+
+        if (inputId.length < minWord || maxWord < inputId.length) {
+            wordCountFlg = true;
+        }
+        return wordCountFlg;
+    }
+
+    // メールアドレスの重複チェック
+    const checkDuplicateMail = async() => {
+        // 入力したメールの値を取得
+        const inputId = document.getElementById('mail_address').value;
+        
+        // DBからUserテーブルのデータを全て取得
+        const allUserData = await getAllUserData(); // DBのUserテーブルからデータを全取得
+        let duplicateMailFlg = false; // 重複アドレスフラグ
+        for (const userData of allUserData) {
+            console.log(userData);
+            if (inputId　==　userData.mail_address) {
+                duplicateMailFlg = true; // 重複IDフラグを上げる       
+                break;      
+            }
+        }
+        // ユーザIDが重複していないか確認して重複していればfalse,していなければtrueを返す
+        if (duplicateMailFlg) {
+            console.log('メールアドレスは重複してます');
+        } else {
+            console.log('メールアドレスはユニークです');
+        }
+        return duplicateMailFlg;
+    }
+
+    // 再入力したパスワードの値との一致を確認
+    const checkMatchPw = () => {
+        let matchPwFlg = false; 
+        const inputPw = document.getElementById('pw').value; // パスワード
+        const inputPwAgain = document.getElementById('pw_again').value; // 再入力パスワード
+
+        if (inputPw !== inputPwAgain) {
+            matchPwFlg = true;
+        }
+        return matchPwFlg;
+    }
+
+    // 各入力チェックの戻り値を確認し全てfalse（問題なし）の場合はDBに登録しホーム画面へ遷移、一つでもtrue（問題あり）であればエラーメッセージを画面表示し再入力を促す
+    const transitionHomeScreen = async () => {
+        // IDの入力チェック関連
+        const formatIdFlg = checkFormatValue('user_id', /^[A-Za-z0-9]+$/); // 入力したIDのフォーマットの整合性をbooleanで取得
+        const wordCountIdFlg = checkWordCountValue('user_id'); // // 入力したIDの文字数の整合性をbooleanで取得
+        // メアドの入力チェック関連
+        const duplicateMailFlg = await checkDuplicateMail(); // 入力したメールアドレスが重複していないかどうかをbooleanで取得
+        const formatmailFlg = checkFormatValue('mail_address', /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/); // 入力したメールアドレスのフォーマットの整合性をbooleanで取得
+        // パスワードの入力チェック関連
+        const formatPwFlg = checkFormatValue('pw', /^[A-Za-z0-9]+$/); // 入力したIDのフォーマットの整合性をbooleanで取得
+        const wordCountPwFlg = checkWordCountValue('pw'); // 入力したIDの文字数の整合性をbooleanで取得
+        const matchPwFlg = checkMatchPw(); // 再入力したパスワードの値との一致を確認
+
+        let errorComment = ''; // アラートに表示するエラー分の文面
+        if (formatIdFlg || wordCountIdFlg) {
+            errorComment += 'IDは半角英数字8文字以上16文字以下で入力して下さい。\n';
+        }
+        if (duplicateMailFlg) {
+            errorComment += '\n入力されたメールアドレスは既に利用されています。\n他のメールアドレスを入力して下さい。\n';
+        }
+        if (formatmailFlg) {
+            errorComment += '\nメールアドレスを正しく入力して下さい。\n';
+        }
+        if (formatPwFlg || wordCountPwFlg) {
+            errorComment += '\nパスワードは半角英数字8文字以上16文字以下で入力して下さい。\n';
+        } else if (matchPwFlg) {
+            errorComment += '\nパスワードが一致しません。\n正しく入力して下さい。\n';
+        }
+
+        // 入力エラーチェック
+        if (errorComment) {
+            alert(errorComment);
+        } else {
+            window.location.href = 'http://localhost:3000/posts/mainView'; // ホーム画面へ遷移  
+        }
+        
+    }
+    
     return (
     <>
     <Head>
         <title>アカウント作成</title>
-        <meta name="description" content="createAccount" author="Y.S" />
-        <link rel="icon" href="/images/favicon.ico" />
+        <meta name='description' content='createAccount' author='Y.S' />
+        <link rel='icon' href='/images/favicon.ico' />
     </Head>
     <div style={styles.container}> 
         <div style={styles.distortedCircle}></div>
-        <div className="fs-2" style={styles.center}>アカウントを作成</div><br></br>
-        <span className="fs-6">ユーザ名</span>
-        <InputGroup className="mb-3" style={{width:400}}>
-            <FormControl 
-                placeholder="半角英数字12文字以上で入力して下さい"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
+        <div className='fs-2' style={styles.center}>アカウントを作成</div><br></br>
+        <span className='fs-6'>ユーザID</span>
+        <InputGroup className='mb-3' style={{width:300}}>
+            <FormControl
+            　　id='user_id' 
+                placeholder='半角英数字12文字以上で入力して下さい'
+                aria-label='Username'
+                aria-describedby='basic-addon1'
                 style={{width:150}}>
             </FormControl>
         </InputGroup>
-        <span className="fs-6">メールアドレス</span>
-        <InputGroup className="mb-3" style={{width:400}}>
+        <span className='fs-6'>メールアドレス</span>
+        <InputGroup className='mb-3' style={{width:300}}>
             <FormControl
-                placeholder="メールアドレスを入力して下さい"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
+                id = 'mail_address'
+                placeholder='メールアドレスを入力して下さい'
+                aria-label='Username'
+                aria-describedby='basic-addon1'
             />
         </InputGroup>
-        <span className="fs-6" style={{textAlign:"left"}}>パスワード</span>
-        <InputGroup className="mb-3" style={{width:400}}>
+        <span className='fs-6' style={{textAlign:'left'}}>パスワード</span>
+        <InputGroup className='mb-3' style={{width:300}}>
             <FormControl
-                className="col-xs-2"
-                placeholder="半角英数字12文字以上で入力して下さい"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
+                id = 'pw'
+                className='col-xs-2'
+                placeholder='半角英数字12文字以上で入力して下さい'
+                aria-label='Username'
+                aria-describedby='basic-addon1'
             />
         </InputGroup>
-        <Button variant="outline-primary"style={{width:150}}>作成</Button><br></br>
+        <span className='fs-6' style={{textAlign:'left'}}>パスワード再入力</span>
+        <InputGroup className='mb-3' style={{width:300}}>
+            <FormControl
+                id = 'pw_again'
+                className='col-xs-2'
+                placeholder='半角英数字12文字以上で入力して下さい'
+                aria-label='Username'
+                aria-describedby='basic-addon1'
+            />
+        </InputGroup>
+        <Button variant='outline-primary'style={{width:150}} onClick={() => transitionHomeScreen()}>作成</Button><br></br>
         <div style={{textAlign:'center'}}>
-            <Link href="/" className="fs-6">
+            <Link href='/' className='fs-6'>
                 <a>ホームに戻る</a>
             </Link>
         </div>
     </div> 
     <div style={styles.footer}>
         <footer>
-            <a href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app" target="_blank" rel="noopener noreferrer">
+            <a href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app' target='_blank' rel='noopener noreferrer'>
                 Powered by{' '}
                 <span className={styles.logo}>
-                    <Image src="/images/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+                    <Image src='/images/vercel.svg' alt='Vercel Logo' width={72} height={16} />
                 </span>
             </a>
         </footer>
@@ -109,8 +229,8 @@ const styles = {
         background: 'red',
       },
       distortedCircle: {
-        width:500, 
-        height:500,
+        width:700, 
+        height:700,
         borderRadius:'50% 50% 50% 70%/50% 50% 70% 60%', 
         background:'skyblue', 
         position:'absolute',

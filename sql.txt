@@ -1,0 +1,17 @@
+create table User (
+    id primary key,
+    name not null,
+    password not null,
+    mail_address unique
+);
+
+insert into User values (
+    '0',
+    'admin',
+    'admin',
+    'admin@gmail.com'
+);
+
+drop table User;
+
+select * from User;
