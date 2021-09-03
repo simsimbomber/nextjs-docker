@@ -85,21 +85,24 @@ const CreateAccount = () => {
         const inputMail = document.getElementById('mail_address').value;
 
 
+        console.log('fetch1');
         // DBに入力した値を保存
-        await fetch(
-            'http://localhost:3000/api/user',
-            {
-                method:'POST',
-                body:name,
+        await fetch('http://localhost:3000/api/user', {
+            method:'POST',
+            body:JSON.stringify({
+                id:uuid,
+                name:inputName,
+                pw:inputPw,
+                mail_address:inputMail
+            }),
+            headers: {
+                'Context-type':'application/json; charset=UTF-8'
             }
-        );
+        })
+        .then(response => response.json())
+        .then(json => console.log(json))
+        console.log('fetch2');
     }
-
-    // // ,{method: 'PUT', headers:{'Content-Type':'application/json'},body:JSON.stringify({name:'oshaberi monster'})}
-    // id:uuid,
-    // name:inputName,
-    // pw:inputPw,
-    // mail_address:inputMail
 
     // 各入力チェックの戻り値を確認し全てfalse（問題なし）の場合はDBに登録しホーム画面へ遷移、一つでもtrue（問題あり）であればエラーメッセージを画面表示し再入力を促す
     const transitionHomeScreen = async () => {

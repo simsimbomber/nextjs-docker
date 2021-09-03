@@ -16,13 +16,13 @@ export default async function getUser(req,res){
                 res.status(200).json({data:data, method:req.method}); // json 形式でデータを取得
                 break;
             case 'POST':
-                const id = req.body['id'];
-                const name = req.body['name'];
-                const pw =  req.body['pw'];
-                const mail_address = req.body['mail_address'];
+                const id = req.body.id;
+                const name = req.body.name;
+                const pw =  req.body.pw;
+                const mail_address = req.body.mail_address;
 
-                await db.all('insert into User values ('+id+','+name+","+pw+","+mail_address+')');
-                res.status(200).json(); 
+                // await db.all('insert into User values ('+id+','+name+","+pw+","+mail_address+')');
+                res.status(200).json(console.log(id));
                 break;
         }
     } catch (err){
