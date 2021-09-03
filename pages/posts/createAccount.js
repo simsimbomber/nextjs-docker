@@ -3,15 +3,15 @@ import Head from 'next/head'
 import Image from 'next/image'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import { v4 as uuidv4 } from 'uuid';
 //import fetch from 'isomorphic-unfetch'
 
 const CreateAccount = () => {
-       
     // DBからユーザデータを全て取得
     const getAllUserData = async() => {
-        const res = await fetch('http://localhost:3000/api/get/user');
-        const data = await res.json();
-        return data;
+        const res = await fetch('http://localhost:3000/api/user',{method:'GET'});
+        const datas = await res.json();
+        return datas.data;
     }
     
     // 入力値の整合性チェック
@@ -29,11 +29,11 @@ const CreateAccount = () => {
     // 文字数が８文字以上１６文字以下かどうかチェック
     const checkWordCountValue = (id) => {
         let wordCountFlg = false;
-        const inputId = document.getElementById(id).value;　// 入力したIDデータ取得
+        const inputValue = document.getElementById(id).value;　// 入力したIDデータ取得
         const minWord = 8; // 最小値
         const maxWord = 16;　// 最大値
 
-        if (inputId.length < minWord || maxWord < inputId.length) {
+        if (inputValue.length < minWord || maxWord < inputValue.length) {
             wordCountFlg = true;
         }
         return wordCountFlg;
@@ -42,24 +42,24 @@ const CreateAccount = () => {
     // メールアドレスの重複チェック
     const checkDuplicateMail = async() => {
         // 入力したメールの値を取得
-        const inputId = document.getElementById('mail_address').value;
+        const inputMail = document.getElementById('mail_address').value;
         
         // DBからUserテーブルのデータを全て取得
         const allUserData = await getAllUserData(); // DBのUserテーブルからデータを全取得
         let duplicateMailFlg = false; // 重複アドレスフラグ
         for (const userData of allUserData) {
             console.log(userData);
-            if (inputId　==　userData.mail_address) {
+            if (inputMail　==　userData.mail_address) {
                 duplicateMailFlg = true; // 重複IDフラグを上げる       
                 break;      
             }
         }
-        // ユーザIDが重複していないか確認して重複していればfalse,していなければtrueを返す
-        if (duplicateMailFlg) {
-            console.log('メールアドレスは重複してます');
-        } else {
-            console.log('メールアドレスはユニークです');
-        }
+        // メールアドレスが重複していないか確認して重複していればfalse,していなければtrueを返す
+        // if (duplicateMailFlg) {
+        //     console.log('メールアドレスは重複してます');
+        // } else {
+        //     console.log('メールアドレスはユニークです');
+        // }
         return duplicateMailFlg;
     }
 
@@ -75,11 +75,37 @@ const CreateAccount = () => {
         return matchPwFlg;
     }
 
+    // // 入力した値をDBに格納
+    const saveDatabase = async () => {
+        // ユニークID取得
+        const uuid = uuidv4(); 
+        // 入力値を取得
+        const inputName   = document.getElementById('name').value;
+        const inputPw   = document.getElementById('pw').value;
+        const inputMail = document.getElementById('mail_address').value;
+
+
+        // DBに入力した値を保存
+        await fetch(
+            'http://localhost:3000/api/user',
+            {
+                method:'POST',
+                body:name,
+            }
+        );
+    }
+
+    // // ,{method: 'PUT', headers:{'Content-Type':'application/json'},body:JSON.stringify({name:'oshaberi monster'})}
+    // id:uuid,
+    // name:inputName,
+    // pw:inputPw,
+    // mail_address:inputMail
+
     // 各入力チェックの戻り値を確認し全てfalse（問題なし）の場合はDBに登録しホーム画面へ遷移、一つでもtrue（問題あり）であればエラーメッセージを画面表示し再入力を促す
     const transitionHomeScreen = async () => {
         // IDの入力チェック関連
-        const formatIdFlg = checkFormatValue('user_id', /^[A-Za-z0-9]+$/); // 入力したIDのフォーマットの整合性をbooleanで取得
-        const wordCountIdFlg = checkWordCountValue('user_id'); // // 入力したIDの文字数の整合性をbooleanで取得
+        const formatIdFlg = checkFormatValue('name', /^[A-Za-z0-9]+$/); // 入力したIDのフォーマットの整合性をbooleanで取得
+        const wordCountIdFlg = checkWordCountValue('name'); // // 入力したIDの文字数の整合性をbooleanで取得
         // メアドの入力チェック関連
         const duplicateMailFlg = await checkDuplicateMail(); // 入力したメールアドレスが重複していないかどうかをbooleanで取得
         const formatmailFlg = checkFormatValue('mail_address', /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/); // 入力したメールアドレスのフォーマットの整合性をbooleanで取得
@@ -108,7 +134,10 @@ const CreateAccount = () => {
         if (errorComment) {
             alert(errorComment);
         } else {
-            window.location.href = 'http://localhost:3000/posts/mainView'; // ホーム画面へ遷移  
+            // 入力した値をDBに格納
+            await saveDatabase();
+            // ホーム画面へ遷移
+            //window.location.href = 'http://localhost:3000/posts/mainView';   
         }
         
     }
@@ -123,10 +152,10 @@ const CreateAccount = () => {
     <div style={styles.container}> 
         <div style={styles.distortedCircle}></div>
         <div className='fs-2' style={styles.center}>アカウントを作成</div><br></br>
-        <span className='fs-6'>ユーザID</span>
+        <span className='fs-6'>ユーザ名</span>
         <InputGroup className='mb-3' style={{width:300}}>
             <FormControl
-            　　id='user_id' 
+            　　id='name' 
                 placeholder='半角英数字12文字以上で入力して下さい'
                 aria-label='Username'
                 aria-describedby='basic-addon1'

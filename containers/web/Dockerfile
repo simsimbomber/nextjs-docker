@@ -21,5 +21,9 @@ RUN npm install
 RUN npm install react-bootstrap bootstrap 
 RUN npm install react-icons
 RUN npm install sqlite sqlite3
+# DBとのやり取りのためのfetchコンポーネント利用のため
+RUN npm install isomorphic-unfetch
+# idをユニークで作成するためにuuidライブラリ利用のため
+RUN npm install uuid
 EXPOSE 3000
 CMD [ "npm", "run", "dev" ]
