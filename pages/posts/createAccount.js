@@ -4,7 +4,7 @@ import Image from 'next/image'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
-//import fetch from 'isomorphic-unfetch'
+import fetch from 'isomorphic-unfetch'
 
 const CreateAccount = () => {
     // DBからユーザデータを全て取得
@@ -80,12 +80,10 @@ const CreateAccount = () => {
         // ユニークID取得
         const uuid = uuidv4(); 
         // 入力値を取得
-        const inputName   = document.getElementById('name').value;
+        const inputName = document.getElementById('name').value;
         const inputPw   = document.getElementById('pw').value;
         const inputMail = document.getElementById('mail_address').value;
-
-
-        console.log('fetch1');
+        
         // DBに入力した値を保存
         await fetch('http://localhost:3000/api/user', {
             method:'POST',
@@ -96,12 +94,9 @@ const CreateAccount = () => {
                 mail_address:inputMail
             }),
             headers: {
-                'Context-type':'application/json; charset=UTF-8'
+                'Content-Type': 'application/json'
             }
         })
-        .then(response => response.json())
-        .then(json => console.log(json))
-        console.log('fetch2');
     }
 
     // 各入力チェックの戻り値を確認し全てfalse（問題なし）の場合はDBに登録しホーム画面へ遷移、一つでもtrue（問題あり）であればエラーメッセージを画面表示し再入力を促す
@@ -138,9 +133,9 @@ const CreateAccount = () => {
             alert(errorComment);
         } else {
             // 入力した値をDBに格納
-            await saveDatabase();
+            saveDatabase();
             // ホーム画面へ遷移
-            //window.location.href = 'http://localhost:3000/posts/mainView';   
+            window.location.href = 'http://localhost:3000/posts/mainView';   
         }
         
     }
