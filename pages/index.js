@@ -27,10 +27,10 @@ export default function Home() {
         {/* <button type="button" href="./posts/login" class="btn btn-light btn-rounded">
           アカウント作成
         </button> */}
-        <Button href="./posts/createAccount" variant="outline-primary" style={{width: 300, marginTop: 30 } }>
+        <Button href="/posts/createAccount" variant="outline-primary" style={{width: 300, marginTop: 30 } }>
           アカウント作成
         </Button>
-        <p>アカウントをお持ちの場合は<Link href="./posts/login" style={{color:'#0070f3'}}>ログイン</Link></p>
+        <p>アカウントをお持ちの場合は<Link href="/posts/login" style={{color:'#0070f3'}}>ログイン</Link></p>
         
 
         <div className={styles.grid}>
@@ -53,7 +53,7 @@ export default function Home() {
           </a>
 
           <a
-            href="./posts/omikuji/mainView"
+            href="/posts/omikuji/mainView"
             className={styles.card}
           >
             <h2>おみくじ &rarr;</h2>

@@ -19,7 +19,7 @@ const Login = () => {
         <span className="fs-6">ユーザ名</span>
         <InputGroup className="mb-3" style={{width:400}}>
             <FormControl 
-                placeholder="半角英数字12文字以上で入力して下さい"
+                placeholder="半角英数字6文字以上で入力して下さい"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 style={{width:150}}>
@@ -29,7 +29,7 @@ const Login = () => {
         <InputGroup className="mb-3" style={{width:400}}>
             <FormControl
                 className="col-xs-2"
-                placeholder="半角英数字12文字以上で入力して下さい"
+                placeholder="半角英数字6文字以上で入力して下さい"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
             />
