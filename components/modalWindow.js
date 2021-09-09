@@ -1,12 +1,24 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { IconContext } from 'react-icons' //IconContextをインポート
-import { ImCross, ImSmile } from "react-icons/im";
-import { GrImage } from "react-icons/gr";
-import { MdPlace } from "react-icons/md";
+import { ImCross, ImSmile } from 'react-icons/im';
+import { GrImage } from 'react-icons/gr';
+import { MdPlace } from 'react-icons/md';
 
 import { Form, Button } from 'react-bootstrap';
 
 const ModalWindow = ({show, setShow}) => {
+
+  // ツイートを行う
+  const postTweet = () => {
+    // 入力した投稿内容を取得
+    const inputContents = document.getElementById('contents').value;
+    // URLから？もしくはstate？props?からユーザのidを取得
+    
+    // Tweetテーブルにツイートを保存
+    // モーダルを閉じる
+    // 画面に投稿内容を表示（これは別の関数に分割）
+  }
+
   if (show) {
     return (
       <div style={styles.overlay}>
@@ -14,18 +26,18 @@ const ModalWindow = ({show, setShow}) => {
               <p><button onClick={() => setShow(false)}><ImCross /></button></p>
               <p>
                 <Form>
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                  <Form.Control as="textarea" rows={6} placeholder="いまどうしてる？"/>
+                  <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
+                  <Form.Control id='contents' as='textarea' rows={6} placeholder='いまどうしてる？'/>
                   </Form.Group>
                 </Form>
               </p>
               <p style={{display:'flex'}}>
                 <IconContext.Provider value={{size:'30px'}}>
-                  <GrImage style={{flexBasis:"10%"}} />
-                  <ImSmile style={{flexBasis:"10%"}} />
-                  <MdPlace style={{flexBasis:"10%"}} />
+                  <GrImage style={{flexBasis:'10%'}} />
+                  <ImSmile style={{flexBasis:'10%'}} />
+                  <MdPlace style={{flexBasis:'10%'}} />
                 </IconContext.Provider>
-                <p style={{flexBasis:"70%"}}><Button variant="outline-primary" style={{width:150}}>ツイートする</Button></p>
+                <p style={{flexBasis:'70%'}}><Button variant='outline-primary' style={{width:150}} onClick={() =>postTweet()}>ツイートする</Button></p>
               </p>
                 
           </div>

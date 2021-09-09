@@ -8,7 +8,7 @@ import Link from 'next/link'
 export default function Home() {
   return (
     <div >
-
+      
       <Head>
         <title>Next.jsでSNSを作ろう/SNS</title>
         <meta name="description" content="Create SNS For Next.js" author="Y.S" />
@@ -24,10 +24,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">SNS!</a>
         </h1>
-        {/* <button type="button" href="./posts/login" class="btn btn-light btn-rounded">
-          アカウント作成
-        </button> */}
-        <Button href="/posts/createAccount" variant="outline-primary" style={{width: 300, marginTop: 30 } }>
+        <Button href="/posts/createAccount" variant="outline-primary" style={{width: 300, marginTop: 30}}>
           アカウント作成
         </Button>
         <p>アカウントをお持ちの場合は<Link href="/posts/login" style={{color:'#0070f3'}}>ログイン</Link></p>

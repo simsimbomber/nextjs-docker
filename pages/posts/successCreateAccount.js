@@ -17,7 +17,7 @@ const successCreateAccount = () => {
         <div style={styles.distortedCircle}></div>
         <div className='fs-2' style={styles.center}>アカウントを作成しました</div><br></br>
         
-        <Button variant='outline-primary'style={{width:150}} onClick={() => (window.location.href = 'http://localhost:3000/posts/myPage')}>マイページ</Button><br></br>
+        <Button variant='outline-primary'style={{width:150}} onClick={() => (window.location.href = 'http://localhost:3000/posts/login')}>ログイン</Button><br></br>
         <div style={{textAlign:'center'}}>
             <Link href='/' className='fs-6'>
                 <a>ホームに戻る</a>

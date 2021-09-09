@@ -35,3 +35,15 @@
 2. 「~/react-app/next-docker-sns/sns$」 配下に移動し「docker-compose up -d --build」を実行しdockerのイメージ、コンテナ作成と同時にコンテナを起動させる。
 
 3. 「http://localhost:3000/」にアクセスし画面にSNSのホーム画面が表示されていればdocker化完了。
+
+### DBの構造（SQLite）
+- User
+  - id
+
+### MEMO
+- サーバサイドのログ確認「docker-compose logs web」
+- コンテナに入る「docker exec -it コンテナ名 sh」
+- sqlite起動「sqlite3 ファイルネーム」「sqlite rootpass/db/nextSns.db」
+- sqlite終了「.exitもしくは.quit」
+- テーブルの構造確認「.schema」
+

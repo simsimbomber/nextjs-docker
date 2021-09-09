@@ -93,8 +93,8 @@ const CreateAccount = () => {
         })
     }
 
-    // 各入力チェックの戻り値を確認し全てfalse（問題なし）の場合はDBに登録しホーム画面へ遷移、一つでもtrue（問題あり）であればエラーメッセージを画面表示し再入力を促す
-    const transitionHomeMyPage = async () => {
+    // 各入力チェックの戻り値を確認し全てfalse（問題なし）の場合はDBに登録しアカウント作成完了画面へ遷移、一つでもtrue（問題あり）であればエラーメッセージを画面表示し再入力を促す
+    const transitionAccountSuccessPage = async () => {
         //ユーザ名の入力チェック関連
         const formatUserNameFlg    = checkFormatValue('name', /^[A-Za-z0-9]+$/); // 入力したユーザ名のフォーマットの整合性をbooleanで取得
         const wordCountUserNameFlg = checkWordCountValue('name'); // // 入力したユーザ名の文字数の整合性をbooleanで取得
@@ -130,7 +130,7 @@ const CreateAccount = () => {
             const createdUuid = uuidv4();
             // 入力した値をDBに格納
             saveDatabase(createdUuid);
-            // アカウント作成成功画面へ遷移（uuidを付与させてユーザごとに動的ルーティングさせることでユーザごとのマイページへ遷移したいが実装中）
+            // アカウント作成成功画面へ遷移
             window.location.href = 'http://localhost:3000/posts/successCreateAccount';   
         }
     }
@@ -144,19 +144,20 @@ const CreateAccount = () => {
     </Head>
     <div style={styles.container}> 
         <div style={styles.distortedCircle}></div>
+        <Image src="/images/twitter_logo.png" alt="twitterのロゴ" width={150} height={50} />        
         <div className='fs-2' style={styles.center}>アカウントを作成</div><br></br>
         <span className='fs-6'>ユーザ名</span>
-        <InputGroup className='mb-3' style={{width:300}}>
+        <InputGroup className='mb-3' style={{width:400}}>
             <FormControl
             　　id='name' 
-                placeholder='半角英数字6文字以上で入力して下さい'
+                placeholder='半角英数字6文字以上16文字以下で入力して下さい'
                 aria-label='Username'
                 aria-describedby='basic-addon1'
                 style={{width:150}}>
             </FormControl>
         </InputGroup>
         <span className='fs-6'>メールアドレス</span>
-        <InputGroup className='mb-3' style={{width:300}}>
+        <InputGroup className='mb-3' style={{width:400}}>
             <FormControl
                 id = 'mail_address'
                 placeholder='メールアドレスを入力して下さい'
@@ -165,26 +166,26 @@ const CreateAccount = () => {
             />
         </InputGroup>
         <span className='fs-6' style={{textAlign:'left'}}>パスワード</span>
-        <InputGroup className='mb-3' style={{width:300}}>
+        <InputGroup className='mb-3' style={{width:400}}>
             <FormControl
                 id = 'pw'
                 className='col-xs-2'
-                placeholder='半角英数字6文字以上で入力して下さい'
+                placeholder='半角英数字6文字以上16文字以下で入力して下さい'
                 aria-label='Username'
                 aria-describedby='basic-addon1'
             />
         </InputGroup>
         <span className='fs-6' style={{textAlign:'left'}}>パスワード再入力</span>
-        <InputGroup className='mb-3' style={{width:300}}>
+        <InputGroup className='mb-3' style={{width:400}}>
             <FormControl
                 id = 'pw_again'
                 className='col-xs-2'
-                placeholder='半角英数字6文字以上で入力して下さい'
+                placeholder='半角英数字6文字以上16文字以下で入力して下さい'
                 aria-label='Username'
                 aria-describedby='basic-addon1'
             />
         </InputGroup>
-        <Button variant='outline-primary'style={{width:150}} onClick={() => transitionHomeMyPage()}>作成</Button><br></br>
+        <Button variant='outline-primary'style={{width:150}} onClick={() => transitionAccountSuccessPage()}>作成</Button><br></br>
         <div style={{textAlign:'center'}}>
             <Link href='/' className='fs-6'>
                 <a>ホームに戻る</a>
@@ -241,7 +242,7 @@ const styles = {
         width:700, 
         height:700,
         borderRadius:'50% 50% 50% 70%/50% 50% 70% 60%', 
-        background:'skyblue', 
+        background:'#add8e6', 
         position:'absolute',
         zIndex:'-1'
       }

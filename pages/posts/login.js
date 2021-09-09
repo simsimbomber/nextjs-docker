@@ -1,42 +1,93 @@
 import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
-//import styles from '../../styles/Home.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import fetch from 'isomorphic-unfetch';
 
 const Login = () => {
+
+    // DBからユーザデータを全て取得
+    const getAllUserData = async() => {
+        const res = await fetch('http://localhost:3000/api/user',{method:'GET'});
+        const datas = await res.json();
+        return datas.data;
+    }
+
+    // マイページボタンを押した時のアクション
+    const transitionMyPage = async() => {
+        // DBを確認し、入力したユーザ名、PWと一致するデータの存在を確認しbooleanで返す
+        const [uniqueAccountFlg, uuid] = await checkExistedAccount(); // アカウント存在フラグとuuidを取得
+
+        // DBにアカウントが確認できたらマイページへ遷移する
+        if (uniqueAccountFlg) {
+            // マイページへ遷移(動的ルーティング)
+            window.location.href = `http://localhost:3000/posts/myPage/${uuid}`; 
+        } else {
+            // アラート表示
+            alert('入力されたメールアドレスやパスワードが正しくありません。\n確認してからやりなおしてください。');
+        }
+    }
+
+    // DBを確認し入力したユーザ名、PWと一致するデータの存在を確認しbooleanで返す
+    const checkExistedAccount = async() => {
+        // 入力したユーザ名、PWを取得
+        const inputMail = document.getElementById('mail_address').value;
+        const inputPw   = document.getElementById('pw').value;
+
+        console.log(inputMail,inputPw);
+        // DBからUserテーブルのデータを全て取得
+        const allUserData = await getAllUserData();
+
+        // DBのデータとの一致を確認し結果を返す
+        let uniqueAccountFlg = false; // ユニークアカウントフラグ
+        let uuid = ''; // id
+        for (const userData of allUserData) {
+            // メアドとPWの一致を確認
+            if (inputMail　==　userData.mail_address && inputPw　==　userData.password) {
+                console.log('メアドとPWがDBと一致しました');
+                uuid = userData.id; // idを取得
+                uniqueAccountFlg = true; // ユニークアカウントフラグを上げる   
+                break;// DBの構造上メールアドレスはユニークなため、見つかった時点で処理終了させる（不可軽減のため）
+            }
+        }
+        return [uniqueAccountFlg, uuid];
+    }
+    
     return (
     <>
     <Head>
         <title>ログインページ</title>
-        <meta name="description" content="Login Page" author="Y.S" />
-        <link rel="icon" href="/images/favicon.ico" />
+        <meta name='description' content='Login Page' author='Y.S' />
+        <link rel='icon' href='/images/favicon.ico' />
     </Head>
     <div style={styles.container}> 
         <div style={styles.distortedCircle}></div>
-        <div className="fs-2" style={styles.center}>SNSにログイン</div><br></br>
-        <span className="fs-6">ユーザ名</span>
-        <InputGroup className="mb-3" style={{width:400}}>
+        <Image src="/images/twitter_logo.png" alt="twitterのロゴ" width={150} height={50} />        
+        <div className='fs-2' style={styles.center}>ログイン</div><br></br>
+        <span className='fs-6'>メールアドレス</span>
+        <InputGroup className='mb-3' style={{width:400}}>
             <FormControl 
-                placeholder="半角英数字6文字以上で入力して下さい"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
+           　　 id='mail_address' 
+                placeholder='メールアドレスを入力して下さい'
+                aria-label='Username'
+                aria-describedby='basic-addon1'
                 style={{width:150}}>
             </FormControl>
         </InputGroup>
-        <span className="fs-6" style={{textAlign:"left"}}>パスワード</span>
-        <InputGroup className="mb-3" style={{width:400}}>
+        <span className='fs-6' style={{textAlign:'left'}}>パスワード</span>
+        <InputGroup className='mb-3' style={{width:400}}>
             <FormControl
-                className="col-xs-2"
-                placeholder="半角英数字6文字以上で入力して下さい"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
+                id = 'pw'
+                className='col-xs-2'
+                placeholder='半角英数字6文字以上16文字以下で入力して下さい'
+                aria-label='Username'
+                aria-describedby='basic-addon1'
             />
         </InputGroup>
-        <Button href="./mainView" variant="outline-primary"style={{width:150}}>ログイン</Button><br></br>
+        <Button variant='outline-primary'style={{width:150}} onClick={() => transitionMyPage()}>ログイン</Button><br></br>
         <div style={{textAlign:'center'}}>
-            <Link href="/" className="fs-6">
+            <Link href='/' className='fs-6'>
                 <a>ホームに戻る</a>
             </Link>
         </div>
@@ -44,10 +95,10 @@ const Login = () => {
 
     <div style={styles.footer}>
         <footer>
-            <a href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app" target="_blank" rel="noopener noreferrer">
+            <a href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app' target='_blank' rel='noopener noreferrer'>
                 Powered by{' '}
                 <span className={styles.logo}>
-                    <Image src="/images/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+                    <Image src='/images/vercel.svg' alt='Vercel Logo' width={72} height={16} />
                 </span>
             </a>
         </footer>
@@ -62,30 +113,17 @@ export default Login;
 const styles = {
     container: {
         minHeight: '90vh',
-        //padding: '0 0.5rem',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        //background: 'skyblue'
-        //height: '100vh',
       },
-      
       center: {
-        // padding: '5rem 0',
-        // flex: '1',
-        // display: 'flex',
-        // flexDirection: 'column',
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        //background: 'skyblue',
         alignItems: 'center'
       },
-
       left: {
         alignItems: 'left'
       },
-
       footer: {
         width: '100%',
         height: '10vh',
@@ -105,7 +143,7 @@ const styles = {
         width:500, 
         height:500,
         borderRadius:'50% 50% 50% 70%/50% 50% 70% 60%', 
-        background:'skyblue', 
+        background:'#add8e6', 
         position:'absolute',
         zIndex:'-1'
       }
