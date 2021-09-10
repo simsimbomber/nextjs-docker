@@ -4,11 +4,20 @@ import styles from '../styles/Home.module.css'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import Link from 'next/link'
+import { useEffect } from 'react';
 
 export default function Home() {
+
+  // useEffect() の実行はブラウザ上でのみ限定され、SSRやSSGのタイミングでは実行されないのでこうしないとsessionStrageがうまく設定できない
+  useEffect(() => {
+    // セッションストレージを空で作成（ログイン状態の保持などで使うため）
+    if(!sessionStorage.getItem('userID')) { // セッションストレージ存在チェック
+      sessionStorage.setItem('userID', ''); // key:userIDでvalueが空のセッションストレージ作成
+    }
+  }, []);
+  
   return (
     <div >
-      
       <Head>
         <title>Next.jsでSNSを作ろう/SNS</title>
         <meta name="description" content="Create SNS For Next.js" author="Y.S" />

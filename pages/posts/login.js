@@ -21,6 +21,8 @@ const Login = () => {
 
         // DBにアカウントが確認できたらマイページへ遷移する
         if (uniqueAccountFlg) {
+            // セッションストレージへIDを保存（ログイン状態を保持するため）
+            sessionStorage.setItem('userID',uuid);
             // マイページへ遷移(動的ルーティング)
             window.location.href = `http://localhost:3000/posts/myPage/${uuid}`; 
         } else {
@@ -146,5 +148,6 @@ const styles = {
         background:'#add8e6', 
         position:'absolute',
         zIndex:'-1'
-      }
+      },
+      
 };

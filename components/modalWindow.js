@@ -12,8 +12,8 @@ const ModalWindow = ({show, setShow}) => {
   const postTweet = () => {
     // 入力した投稿内容を取得
     const inputContents = document.getElementById('contents').value;
-    // URLから？もしくはstate？props?からユーザのidを取得
-    
+    // セッションストレージからユーザIDを取得
+
     // Tweetテーブルにツイートを保存
     // モーダルを閉じる
     // 画面に投稿内容を表示（これは別の関数に分割）

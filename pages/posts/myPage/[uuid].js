@@ -1,13 +1,36 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import { RiTwitterFill, RiHome7Line, RiBellLine, RiMailLine, RiBookmark3Line, RiFileList2Line, RiSettings4Line, RiSearchLine } from "react-icons/ri";
 import ModalWindow from '../../../components/modalWindow';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const myPage = () => {
+    
+    // const [state, setOmikujiResult] = useState(
+    //     {
+    //       name: 'push', 
+    //       comment: 'ここに運勢を表示します', 
+    //       probability: '', 
+    //       buttonColor: 'grey'
+    //     }
+    //   );
+
+    // コンポーネントのマウント時に1回だけ実行する
+    // useEffect(() => {
+    //     if(!sessionStorage.getItem('userID')) { // セッションストレージ存在チェック
+            
+    //     }
+    // }, []);
+   
     const [show, setShow] = useState(false);
 
+    // if (sessionFlg) {
+
+    // } else {
+
+    // }
     return (
     <>
     <Head>
@@ -60,7 +83,7 @@ const myPage = () => {
         <div style={styles.container_child_center}>
         </div>
         <div style={styles.container_child_right}>
-            <InputGroup className="mb-3" style={{width:400}}>
+            <InputGroup className="mb-3" style={{width:300}}>
                 <InputGroup.Text><RiSearchLine/></InputGroup.Text>
                 <FormControl 
                     placeholder="検索"
@@ -74,16 +97,16 @@ const myPage = () => {
 
     
 
-    {/* <div style={styles.footer}>
+    <div style={styles.footer}>
         <footer>
             <a href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app" target="_blank" rel="noopener noreferrer">
                 Powered by{' '}
                 <span className={styles.logo}>
-                    <Image src="/images/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+                    <Image src="/images/images/vercel.svg" alt="Vercel Logo" width={72} height={16} />
                 </span>
             </a>
         </footer>
-    </div> */}
+    </div>
     </>
     )
 }
@@ -93,59 +116,63 @@ export default myPage;
 // CSS in Js
 const styles = {
     container_parent: {
-        minHeight: '100vh',
+        minHeight: '90vh',
         display: 'flex',
         flexDiretion: 'row',
     },
     container_child_left: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      background: 'white',
-      width:'25%',
-      justifyContent: 'center',
-      alignItems: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: 'white',
+        width:'25%',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     container_child_center: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      background: 'white',
-      width:'50%',
-      borderLeft: 'solid 2px grey',
-      borderRight: 'solid 2px grey',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: 'white',
+        width:'50%',
+        borderLeft: 'solid 2px grey',
+        borderRight: 'solid 2px grey',
     },
     container_child_right: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      background: 'white',
-      width:'25%',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: 'white',
+        width:'25%',
     },
     left: {
-      alignItems: 'left'
+        alignItems: 'left'
     },
     center: {
-      alignItems: 'center'
+        alignItems: 'center'
     },
     margin_list: {
-      margin:'5px 15px 5px 5px'
+        margin:'5px 15px 5px 5px'
     },
     footer: {
-      width: '100%',
-      height: '10vh',
-      borderTop: '1px solid #eaeaea',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
+        width: '100%',
+        minHeight: '10vh',
+        borderTop: '1px solid #eaeaea',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
     },
     square: {
-      width: '150px',
-      height: '150px',
-      borderRadius: '50%',
-      background: 'red',
+        width: '150px',
+        height: '150px',
+        borderRadius: '50%',
+        background: 'red',
     },
     link_none: {
-      textDecoration: 'none',
-      color: '#000000',
+        textDecoration: 'none',
+        color: '#000000',
+    },
+    logo: {
+        height: '1em',
+        marginLeft: '0.5rem'
     },
     
 };
