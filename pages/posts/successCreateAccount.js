@@ -3,6 +3,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
+import HeaderSns from '../../components/headerSns';
+import FooterSns from '../../components/footerSns';
 
 const successCreateAccount = () => {
 
@@ -13,6 +15,7 @@ const successCreateAccount = () => {
         <meta name='description' content='SuccessCreateAccount' author='Y.S' />
         <link rel='icon' href='/images/favicon.ico' />
     </Head>
+    <HeaderSns />
     <div style={styles.container}> 
         <div style={styles.distortedCircle}></div>
         <div className='fs-2' style={styles.center}>アカウントを作成しました</div><br></br>
@@ -24,16 +27,7 @@ const successCreateAccount = () => {
             </Link>
         </div>
     </div> 
-    <div style={styles.footer}>
-        <footer>
-            <a href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app' target='_blank' rel='noopener noreferrer'>
-                Powered by{' '}
-                <span className={styles.logo}>
-                    <Image src='/images/vercel.svg' alt='Vercel Logo' width={72} height={16} />
-                </span>
-            </a>
-        </footer>
-    </div>
+    <FooterSns />
     </>
     )
 }

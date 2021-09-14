@@ -4,8 +4,14 @@ import Image from 'next/image'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import fetch from 'isomorphic-unfetch';
+import ErrorMessage from '../../components/errorMessage';
+import FooterSns from '../../components/footerSns';
 
+import React, { useState } from 'react';
 const Login = () => {
+
+    // エラーメッセージのstate
+    const [displayMessageFlg, setDisplayMessageFlg] = useState(false);
 
     // DBからユーザデータを全て取得
     const getAllUserData = async() => {
@@ -27,7 +33,8 @@ const Login = () => {
             window.location.href = `http://localhost:3000/posts/myPage/${uuid}`; 
         } else {
             // アラート表示
-            alert('入力されたメールアドレスやパスワードが正しくありません。\n確認してからやりなおしてください。');
+            //alert('入力されたメールアドレスやパスワードが正しくありません。\n確認してからやりなおしてください。');
+            setDisplayMessageFlg(true);
         }
     }
 
@@ -88,23 +95,15 @@ const Login = () => {
             />
         </InputGroup>
         <Button variant='outline-primary'style={{width:150}} onClick={() => transitionMyPage()}>ログイン</Button><br></br>
+        <ErrorMessage displayFlg={displayMessageFlg} message='入力されたメールアドレスやパスワードが正しくありません。確認してからやりなおしてください。' />
+
         <div style={{textAlign:'center'}}>
             <Link href='/' className='fs-6'>
                 <a>ホームに戻る</a>
             </Link>
         </div>
     </div> 
-
-    <div style={styles.footer}>
-        <footer>
-            <a href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app' target='_blank' rel='noopener noreferrer'>
-                Powered by{' '}
-                <span className={styles.logo}>
-                    <Image src='/images/vercel.svg' alt='Vercel Logo' width={72} height={16} />
-                </span>
-            </a>
-        </footer>
-    </div>
+    <FooterSns />
     </>
     )
 }

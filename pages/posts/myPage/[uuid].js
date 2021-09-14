@@ -5,6 +5,7 @@ import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import { RiTwitterFill, RiHome7Line, RiBellLine, RiMailLine, RiBookmark3Line, RiFileList2Line, RiSettings4Line, RiSearchLine } from "react-icons/ri";
 import ModalWindow from '../../../components/modalWindow';
 import React, { useState, useEffect } from 'react';
+import FooterSns from '../../../components/footerSns';
 
 const myPage = () => {
     
@@ -94,19 +95,7 @@ const myPage = () => {
             </InputGroup>
         </div>
     </div>
-
-    
-
-    <div style={styles.footer}>
-        <footer>
-            <a href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app" target="_blank" rel="noopener noreferrer">
-                Powered by{' '}
-                <span className={styles.logo}>
-                    <Image src="/images/images/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-                </span>
-            </a>
-        </footer>
-    </div>
+    <FooterSns />
     </>
     )
 }
