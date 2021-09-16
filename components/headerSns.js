@@ -1,7 +1,8 @@
 import { Navbar, Nav } from 'react-bootstrap';
 
-const FooterSns = () => {
+const HeaderSns = () => {
     return (
+        <div style={styles.header}>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Navbar.Brand href="#home">
                     <img
@@ -19,7 +20,15 @@ const FooterSns = () => {
                         <Nav.Link href="#features">LOGOUT</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
-            </Navbar >
+        </Navbar >
+        </div>
     );
 }
-export default FooterSns;
+export default HeaderSns;
+
+// CSS in Js
+const styles = {
+    header: {
+        height: '10vh',
+    },
+};
