@@ -3,7 +3,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 const HeaderSns = () => {
     return (
         <div style={styles.header}>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={styles.config}>
                 <Navbar.Brand href="#home">
                     <img
                         src='/images/React-icon.png'
@@ -17,7 +17,7 @@ const HeaderSns = () => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="/">HOME</Nav.Link>
-                        <Nav.Link href="#features">LOGOUT</Nav.Link>
+                        <Nav.Link href="/posts/logout">LOGOUT</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
         </Navbar >
@@ -29,6 +29,11 @@ export default HeaderSns;
 // CSS in Js
 const styles = {
     header: {
-        height: '10vh',
+        height: '5vh',
     },
+    // Navbarコンポーネントはデフォルトでpadding-topとpadding-bottomが「.5rem」が設定されていて嫌なので調整
+    config: {
+        paddingTop: '.0rem',
+        paddingBottom: '.0rem',
+    }
 };

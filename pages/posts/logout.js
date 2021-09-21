@@ -2,9 +2,19 @@ import Head from 'next/head'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import FooterSns from '../../components/footerSns';
+import { useEffect } from 'react';
 
 const Logout = () => {
-    return (
+  // セッションストレージからuserIDを削除
+  useEffect(() => {
+    // セッションストレージを空で作成（ログイン状態の保持などで使うため）
+    if(sessionStorage.getItem('userID')) { // セッションストレージ存在チェック
+      sessionStorage.removeItem('userID'); // key:userIDのセッションストレージ削除
+    }
+  }, []);
+
+
+  return (
     <>
     <Head>
         <title>ログアウト成功</title>
@@ -18,7 +28,7 @@ const Logout = () => {
     </div> 
     <FooterSns />
     </>
-    );
+  );
 }
 
 export default Logout;

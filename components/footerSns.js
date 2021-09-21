@@ -10,10 +10,10 @@ const FooterSns = () => {
         <meta name='description' content='footer' author='Y.S' />
     </Head>
     <div style={styles.footer}>
-        <footer href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app' target='_blank' rel='noopener noreferrer'>
+        <footer href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app' target='_blank' rel='noopener noreferrer' style={styles.textColor}>
             Powered by{' '}
             <span className={styles.logo}>
-                <Image src='/images/vercel.svg' alt='Vercel Logo' width={72} height={16} />
+                <Image src='/images/vercel.svg' alt='Vercel Logo' width={72} height={16}/>
             </span>
         </footer>
     </div>
@@ -27,11 +27,15 @@ export default FooterSns;
 const styles = {
     footer: {
         width: '100%',
-        height: '10vh',
+        height: '5vh',
         borderTop: '1px solid #eaeaea',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
+        background: 'white',
+    },
+    textColor: {
+        color: 'black',
     },
 };

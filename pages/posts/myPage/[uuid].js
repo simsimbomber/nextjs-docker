@@ -6,6 +6,7 @@ import { RiTwitterFill, RiHome7Line, RiBellLine, RiMailLine, RiBookmark3Line, Ri
 import ModalWindow from '../../../components/modalWindow';
 import React, { useState, useEffect } from 'react';
 import FooterSns from '../../../components/footerSns';
+import HeaderSns from '../../../components/headerSns';
 
 const myPage = () => {
     
@@ -39,7 +40,8 @@ const myPage = () => {
         <meta name="description" content="MyPage" author="Y.S" />
         <link rel="icon" href="/images/favicon.ico" />
     </Head>
-
+    <HeaderSns/>
+    
     <div style={styles.container_parent}>
         <div style={styles.container_child_left}>
             <ul>
@@ -106,6 +108,7 @@ export default myPage;
 const styles = {
     container_parent: {
         minHeight: '90vh',
+        //minWidth: '100vh',
         display: 'flex',
         flexDiretion: 'row',
     },
@@ -140,28 +143,8 @@ const styles = {
     margin_list: {
         margin:'5px 15px 5px 5px'
     },
-    footer: {
-        width: '100%',
-        minHeight: '10vh',
-        borderTop: '1px solid #eaeaea',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-    },
-    square: {
-        width: '150px',
-        height: '150px',
-        borderRadius: '50%',
-        background: 'red',
-    },
     link_none: {
         textDecoration: 'none',
         color: '#000000',
     },
-    logo: {
-        height: '1em',
-        marginLeft: '0.5rem'
-    },
-    
 };
