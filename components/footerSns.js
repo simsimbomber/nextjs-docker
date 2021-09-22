@@ -6,7 +6,7 @@ const FooterSns = () => {
     return (
     <>
     <Head>
-        <title>フッター</title>
+        {/* <title>フッター</title> */}
         <meta name='description' content='footer' author='Y.S' />
     </Head>
     <div style={styles.footer}>
