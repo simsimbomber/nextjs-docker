@@ -7,32 +7,20 @@ import ModalWindow from '../../../components/modalWindow';
 import React, { useState, useEffect } from 'react';
 import FooterSns from '../../../components/footerSns';
 import HeaderSns from '../../../components/headerSns';
+import Contents from '../../../components/contents';
+
 
 const myPage = () => {
-    
-    // const [state, setOmikujiResult] = useState(
-    //     {
-    //       name: 'push', 
-    //       comment: 'ここに運勢を表示します', 
-    //       probability: '', 
-    //       buttonColor: 'grey'
-    //     }
-    //   );
-
     // コンポーネントのマウント時に1回だけ実行する
-    // useEffect(() => {
-    //     if(!sessionStorage.getItem('userID')) { // セッションストレージ存在チェック
-            
-    //     }
-    // }, []);
-   
+    useEffect(() => {
+        if(!sessionStorage.getItem('userID')) { // セッションストレージ存在チェック
+            window.location.href = `http://localhost:3000/posts/sessionLost`; // セッションロスト画面に遷移
+        }
+    }, []);
+    
+    
     const [show, setShow] = useState(false);
 
-    // if (sessionFlg) {
-
-    // } else {
-
-    // }
     return (
     <>
     <Head>
@@ -84,6 +72,7 @@ const myPage = () => {
         </div>
 
         <div style={styles.container_child_center}>
+            <Contents />
         </div>
         <div style={styles.container_child_right}>
             <InputGroup className="mb-3" style={{width:300}}>

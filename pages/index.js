@@ -20,13 +20,13 @@ export default function Home() {
   return (
     <div >
       <Head>
-        <title>SnsForNext.js</title>
+        <title>Next.jsでSNSを作ろう/SNS</title>
         <meta name="description" content="Create SNS For Next.js" author="Y.S" />
         <link rel="icon" href="/images/favicon.ico" />
       </Head>
       <div height= '95vh'>
         <div className={styles.inlineBlock}>
-          <Image src="/images/twitter_icon.png" alt="ログインページに表示するSNSイメージ画像" width={800} height={800} />        
+          <Image src="/images/twitter_icon.png" alt="ログインページに表示するSNSイメージ画像" width={800} height={870} />        
         </div>
       
         <main className={styles.main}>
@@ -73,3 +73,8 @@ export default function Home() {
     </div>
   )
 }
+
+// CSS in Js
+// const styles = {
+  
+// };

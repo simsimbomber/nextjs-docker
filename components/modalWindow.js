@@ -3,19 +3,46 @@ import { IconContext } from 'react-icons' //IconContextをインポート
 import { ImCross, ImSmile } from 'react-icons/im';
 import { GrImage } from 'react-icons/gr';
 import { MdPlace } from 'react-icons/md';
-
+import { v4 as uuidv4 } from 'uuid';
 import { Form, Button } from 'react-bootstrap';
 
 const ModalWindow = ({show, setShow}) => {
 
+  // 入力した値をDBに格納
+  const saveDatabase = async () => {
+    // ユニークID取得
+    const uuid = uuidv4();
+    // 入力値を取得
+    const inputContents = document.getElementById('contents').value;
+    // セッションストレージからユーザID取得
+    const sessionId = sessionStorage.getItem('userID');
+    // 現在時刻を取得
+    const nowTime = new Date();
+    // DBに入力した値を保存
+    await fetch('http://localhost:3000/api/tweet', {
+        method:'POST',
+        body:JSON.stringify({
+            id:uuid,
+            create_user_id:sessionId,
+            contents:inputContents,
+            favorite_count:0,
+            retweet_count:0,
+            created_time:nowTime
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+  };
+
   // ツイートを行う
   const postTweet = () => {
-    // 入力した投稿内容を取得
-    const inputContents = document.getElementById('contents').value;
-    // セッションストレージからユーザIDを取得
-
     // Tweetテーブルにツイートを保存
+    saveDatabase();
     // モーダルを閉じる
+    setShow(false);
+    // 画面に「ツイートを送信しました」と表示し時間経過で非表示にする（２秒くらい？）
+    
     // 画面に投稿内容を表示（これは別の関数に分割）
   }
 
@@ -26,7 +53,7 @@ const ModalWindow = ({show, setShow}) => {
               <p><button onClick={() => setShow(false)}><ImCross /></button></p>
               <p>
                 <Form>
-                  <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
+                  <Form.Group className='mb-3'>
                   <Form.Control id='contents' as='textarea' rows={6} placeholder='いまどうしてる？'/>
                   </Form.Group>
                 </Form>
