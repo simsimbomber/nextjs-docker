@@ -43,7 +43,7 @@
 ### MEMO
 - サーバサイドのログ確認「docker-compose logs web」
 - コンテナに入る「docker exec -it コンテナ名 sh」
-- sqlite起動「sqlite3 ファイルネーム」「sqlite3 rootpass/db/nextSns.db」
+- sqlite起動「sqlite3 ファイルネーム」「sqlite3 rootpass/db/nextSns.db」例：ルートのsnsからであれば「sqlite3 db/nextSns.db」
 - sqlite終了「.exitもしくは.quit」
 - テーブルの構造確認「.schema」
 

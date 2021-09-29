@@ -5,7 +5,6 @@ import {open} from 'sqlite';
 export default async (req,res) => {
     try {
         const { method } = req;
-        //const db = new sqlite3.Database('./db/nextSns.db');
         //db接続
         const db = await open({
             filename:'./db/nextSns.db',
@@ -14,10 +13,8 @@ export default async (req,res) => {
 
         switch (method) {
             case 'GET':
-                // db.serialize(() => {
-                //     db.run(`insert into User values (select * from User)`);
-                // });
-                const data = await db.all(`select * from Tweet where create_user_id='${req.body.create_user_id}.order by created_time desc limit 10` );
+                //const data = await db.all(`select * from Tweet where create_user_id='${req.body.create_user_id}.order by created_time desc limit 10` );
+                const data = await db.all(`select * from Tweet order by created_time desc limit 10` );
                 res.status(200).json({data:data, method:req.method}); // json 形式でデータを取得
                 break;
             case 'POST':
@@ -28,13 +25,8 @@ export default async (req,res) => {
                 const reqRetweetCount  = req.body.retweet_count;
                 const reqCreatedTime   = req.body.created_time;
 
-
                 await db.all(`insert into Tweet values ('${reqId}','${reqCreatedUserId}','${reqContents}','${reqFavoriteCount}','${reqRetweetCount}','${reqCreatedTime}')`);
-                // db.serialize(() => {
-                //     db.run(`insert into User values ('${reqId}','${reqName}','${reqPw}','${reqMail}')`);
-                // });
-                
-                // res.status(200).json({req:req});
+                res.status(200).json({statusCode: 200, method:req.method}); // json 形式でデータを取得
                 break;
         }
     } catch (err){

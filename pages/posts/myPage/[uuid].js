@@ -69,10 +69,8 @@ const myPage = () => {
             </ul>
             <div style={{marginLeft:'90px'}} >
                 <Button variant="outline-primary" style={{width:150}} onClick={() => setShow(true)}>ツイート</Button><br></br>
-                <ModalWindow show={show} setShow={setShow}/>
             </div>
-            
-            
+    
         </div>
 
         <div style={styles.container_child_center}>
@@ -91,6 +89,7 @@ const myPage = () => {
         </div>
     </div>
     <FooterSns />
+    <ModalWindow show={show} setShow={setShow}/>
     </>
     )
 }
