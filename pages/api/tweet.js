@@ -17,7 +17,7 @@ export default async (req,res) => {
                 // db.serialize(() => {
                 //     db.run(`insert into User values (select * from User)`);
                 // });
-                const data = await db.all('select * from Tweet');
+                const data = await db.all(`select * from Tweet where create_user_id='${req.body.create_user_id}.order by created_time desc limit 10` );
                 res.status(200).json({data:data, method:req.method}); // json 形式でデータを取得
                 break;
             case 'POST':

@@ -11,14 +11,18 @@ import Contents from '../../../components/contents';
 
 
 const myPage = () => {
-    // コンポーネントのマウント時に1回だけ実行する
+    console.log('mypageコンポーネント読み込み');
+    // コンポーネントのマウント時（初回読み込み時）に1回だけ実行する
     useEffect(() => {
+        console.log('mypageコンポーネント(useEffect)読み込み');
+        // セッションチェック
         if(!sessionStorage.getItem('userID')) { // セッションストレージ存在チェック
             window.location.href = `http://localhost:3000/posts/sessionLost`; // セッションロスト画面に遷移
         }
+        
     }, []);
-    
-    
+
+    // モーダルウィンドウの状態管理
     const [show, setShow] = useState(false);
 
     return (

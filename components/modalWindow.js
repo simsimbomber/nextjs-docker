@@ -18,6 +18,8 @@ const ModalWindow = ({show, setShow}) => {
     const sessionId = sessionStorage.getItem('userID');
     // 現在時刻を取得
     const nowTime = new Date();
+
+
     // DBに入力した値を保存
     await fetch('http://localhost:3000/api/tweet', {
         method:'POST',

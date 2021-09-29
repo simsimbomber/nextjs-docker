@@ -25,5 +25,8 @@ RUN npm install sqlite sqlite3
 RUN npm install isomorphic-unfetch
 # idをユニークで作成するためにuuidライブラリ利用のため
 RUN npm install uuid
+# ORM(prisma)利用
+RUN npm install prisma --save-dev
+RUN npm install @prisma/client
 EXPOSE 3000
 CMD [ "npm", "run", "dev" ]
