@@ -20,12 +20,15 @@ const Contents = () => {
     // ,sql:'created_timeAsc10'
     const res = await fetch('http://localhost:3000/api/tweet',{method:'GET'});
     const datas = await res.json();
+    console.log('TTEESSTT');
+    console.log(datas.data);
     return datas.data;
 }
 
   // 画面に履歴を表示
   const drawHistory = (history) => {
     console.log('★drawHistory★');
+    console.log(history);
     const historyElement = document.querySelector('.history'); //クラス "history" を持つ文書内の要素の内、最初のもの(一番古い履歴リスト)を返します。
     console.log('historyElement:'+historyElement)
     removeChildren(historyElement);
@@ -35,15 +38,28 @@ const Contents = () => {
     // hoge.reverse() で破壊的。hoge.slice().reverse() で非破壊的.逆順にしたhistoryをrecordにいれる
     //「配列」historyの値を1つずつ「変数recordへ代入してくれるようになります。
     for (const record of history.slice().reverse()) {
+      console.log(record);
       const { id, create_user_id, contents, favorite_count, retweet_count, created_time } = record;
-    
-      const newLi = document.createElement('li'); // 新しくliダグを生成
 
-      newLi.style.padding = "5";
+      // １ツイートごとに枠組みを作成
 
-      newLi.setAttribute('id', id); // liタグにidという属性を指定し、そのidの値に変数idを格納
-      newLi.innerHTML = id + ' ' + contents; // liタグのHTMLを挿入
-      historyElement.appendChild(newLi);
+      // 1行目
+      const newDiv_1 = document.createElement('div'); // 新しくdivダグを生成
+      newDiv_1.style.padding = "5";
+      //newDiv_1.setAttribute('id', id); // liタグにidという属性を指定し、そのidの値に変数idを格納
+      newDiv_1.innerHTML = create_user_id; // liタグのHTMLを挿入
+      historyElement.appendChild(newDiv_1);
+      // 2行目
+      const newDiv_2 = document.createElement('div'); // 新しくdivダグを生成
+      newDiv_2.style.padding = "5";
+      newDiv_2.innerHTML = contents; // liタグのHTMLを挿入
+      historyElement.appendChild(newDiv_2);
+      // 3行目
+      // 4行目
+      const newHr = document.createElement('hr'); // 新しくhrダグを生成
+      //newDiv_4.style.padding = "5";
+      newHr.style.coror ='grey';
+      historyElement.appendChild(newHr);
     }
   }
 

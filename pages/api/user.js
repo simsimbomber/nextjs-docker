@@ -17,7 +17,9 @@ export default async (req,res) => {
                 // db.serialize(() => {
                 //     db.run(`insert into User values (select * from User)`);
                 // });
-                const data = await db.all('select * from User');
+
+                // select name from User inner join Tweet on User.id = Tweet.create_user_id
+                const data = await db.all('select * from User ');
                 res.status(200).json({data:data, method:req.method}); // json 形式でデータを取得
                 break;
             case 'POST':
