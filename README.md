@@ -37,8 +37,14 @@
 3. 「http://localhost:3000/」にアクセスし画面にSNSのホーム画面が表示されていればdocker化完了。
 
 ### DBの構造（SQLite）
-- User
-  - id
+CREATE TABLE User (
+    id primary key,
+    name not null,
+    password not null,
+    mail_address unique
+);
+CREATE TABLE Tweet (id unique,create_user_id not null,contents not null,favorite_count not null,retweet_count not null,created_time not null);
+
 
 ### MEMO
 - サーバサイドのログ確認「docker-compose logs web」
@@ -46,4 +52,5 @@
 - sqlite起動「sqlite3 ファイルネーム」「sqlite3 rootpass/db/nextSns.db」例：ルートのsnsからであれば「sqlite3 db/nextSns.db」
 - sqlite終了「.exitもしくは.quit」
 - テーブルの構造確認「.schema」
+
 

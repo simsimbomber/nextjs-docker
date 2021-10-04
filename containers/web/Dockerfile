@@ -14,7 +14,7 @@
 # VOLUME	 永続データにアクセスして保存するためのディレクトリマウントポイントを作成します。
 # 参考：https://www.tohoho-web.com/docker/dockerfile.html
 
-FROM node:12-alpine
+FROM node:14-alpine
 WORKDIR /usr/src/app
 COPY . .
 RUN npm install
@@ -27,11 +27,11 @@ RUN npm install isomorphic-unfetch
 RUN npm install uuid
 
 # # ORM(prisma)インストール
-# RUN npm install prisma --save-dev
-# RUN npm install @prisma/client
+RUN npm install prisma --save-dev
+RUN npm install @prisma/client
 # # ローカルにインストールされたCLIを呼び出す
-# RUN npx prisma
-# RUN npx prisma generate
-
+RUN npx prisma
+RUN npx prisma generate
+RUN npx prisma migrate dev --name init
 EXPOSE 3000
 CMD [ "npm", "run", "dev" ]
