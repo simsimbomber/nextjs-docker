@@ -30,8 +30,8 @@ RUN npm install uuid
 RUN npm install prisma --save-dev
 RUN npm install @prisma/client
 # # ローカルにインストールされたCLIを呼び出す
-RUN npx prisma
-RUN npx prisma generate
-RUN npx prisma migrate dev --name init
+# RUN npx prisma
+# RUN npx prisma migrate dev --name init
+# RUN npx prisma generate
 EXPOSE 3000
 CMD [ "npm", "run", "dev" ]
